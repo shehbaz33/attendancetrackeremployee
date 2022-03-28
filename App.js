@@ -1,11 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import AppLoading  from 'expo-app-loading';
+import fetchFonts from './useFonts';
+import Login from './screens/Login';
+import colors from './assets/colors/colors';
 
 export default function App() {
+  const [dataLoaded,setDataLoaded] = useState(false)
+  const loadFont = async () => {
+    await fetchFonts();
+  }
+  if(!dataLoaded){
+    return (
+      <AppLoading
+        startAsync={loadFont}
+        onFinish={() => setDataLoaded(true)}
+        onError={() => {}}
+      />
+    );
+  }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+        <Login/>
     </View>
   );
 }
@@ -13,7 +30,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
