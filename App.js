@@ -4,7 +4,12 @@ import { useState } from 'react';
 import AppLoading  from 'expo-app-loading';
 import fetchFonts from './useFonts';
 import Login from './screens/Login';
+import Home from './screens/Home';
 import colors from './assets/colors/colors';
+import FlashMessage from "react-native-flash-message";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dataLoaded,setDataLoaded] = useState(false)
@@ -21,9 +26,12 @@ export default function App() {
     );
   }
   return (
-    <View style={styles.container}>
-        <Login/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
+        <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -32,6 +40,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });
