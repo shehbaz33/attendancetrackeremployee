@@ -1,30 +1,14 @@
 import { StyleSheet, Text, View,SafeAreaView,TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import colors from '../assets/colors/colors'
-import { logoutSuccess } from '../redux/userSlice'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Notification from './Notification'
 import Profile from './Profile'
 import Leaves from './Leaves'
 import { AntDesign,Ionicons } from '@expo/vector-icons';
-
-
-const Home = () => {
-  const dispatch = useDispatch();
-  const handleLogout = async() => {
-    console.log('Logged out')
-    dispatch(logoutSuccess())
-    await AsyncStorage.clear();
-  }
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
-}
+import { HomeStack } from '../navigation/HomeStack'
+import colors from '../assets/colors/colors'
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 export default Wrapper = () => { 
   const Tab = createBottomTabNavigator();
@@ -35,7 +19,7 @@ export default Wrapper = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'HomeStack') {
               iconName = focused
                 ? 'home'
                 : 'home';
@@ -66,7 +50,14 @@ export default Wrapper = () => {
       }
       )}
       >
-        <Tab.Screen name="Home" component={Home} options={{headerShown:false}} />
+        <Tab.Screen name="HomeStack" component={HomeStack} options={({route}) => ({
+          headerShown:false,
+          tabBarStyle:{
+            height:100,
+            elevation:0,
+            display: getTabBarVisibility(route)
+          }
+        })} />
         <Tab.Screen name="Leaves" component={Leaves} options={{headerShown:false}}  />
         <Tab.Screen name="Profile" component={Profile} options={{headerShown:false}}  />
         <Tab.Screen name="Notification" component={Notification} options={{headerShown:false}}  />  
@@ -83,3 +74,13 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   }
 })
+
+const getTabBarVisibility = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route)
+  if(routeName == 'Attendance'){
+    return 'none';
+  } else if (routeName == 'Status') {
+    return 'none';
+  }
+  return 'flex';
+}
