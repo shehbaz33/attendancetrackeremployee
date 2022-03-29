@@ -6,8 +6,13 @@ import * as yup from 'yup'
 import axios from 'axios'
 import OTPTextView from 'react-native-otp-textinput'
 import { showMessage, hideMessage } from "react-native-flash-message";
+import { useDispatch,useSelector } from 'react-redux'
+import { loginStart,loginSuccess,loginError } from '../redux/userSlice'
+import FlashMessage from "react-native-flash-message";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
+    const dispatch = useDispatch();
     const loginValidationSchema = yup.object().shape({
         phone: yup.string()
         .required('Please enter a phone number')
@@ -34,6 +39,7 @@ const Login = () => {
       }
 
       const verifyOTP = async () => {
+          dispatch(loginStart())
           const data = {
               hash:hash,
               otp:userOTP,
@@ -44,12 +50,23 @@ const Login = () => {
               url:'http://192.168.0.175:5000/api/v1/verifyotp',
               data:data,
               headers: {"Content-Type": "application/json"}
-          }).then(res => console.log(res.data))
+          }).then(res => {
+              dispatch(loginSuccess(res.data.token))
+              const storeData = async () => {
+                try {
+                  await AsyncStorage.setItem('token', res.data.token)
+                } catch (e) {
+                  console.log(e)
+                }
+              }
+              storeData()
+          })
           .catch(err => {
             showMessage({
                 message: err.response.data.message,
                 type: "danger",
               });
+              dispatch(loginError())
           })
       }
 
@@ -92,7 +109,7 @@ const Login = () => {
                       });
                    })
                    .catch(err => 
-                    setError(err.response.data.error.message)
+                    console.log(err.response)
                     )
             }}
             >
@@ -130,7 +147,7 @@ const Login = () => {
                                 tintColor={colors.accents}
                             />
                             <TouchableOpacity style={styles.button} onPress={() => verifyOTP()}>
-                                <Text style={styles.buttonText}>Enter OTP</Text>
+                                <Text style={styles.buttonText}>Login</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={goBack}>
                                 <Text style={{color:colors.accents}}>Go back</Text>
