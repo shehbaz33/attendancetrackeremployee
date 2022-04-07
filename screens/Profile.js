@@ -63,56 +63,61 @@ const Profile = ({ navigation, route }) => {
       </View>
       <View style={styles.bodyHeight}>
         <View style={tw`mt-4`}>
-          <Text
-            style={{
-              color: colors.textSecondary,
-              marginLeft: 30,
-              fontSize: 14,
-              fontFamily: "DMSans-Regular",
-            }}
-          >
-            Check Your Profile
-          </Text>
-          <Text
-            style={{
-              color: colors.textPrimary,
-              marginLeft: 30,
-              fontSize: 24,
-              fontFamily: "DMSans-Bold",
-              marginTop: -5,
-            }}
-          >
-            Details
-          </Text>
-          <View style={styles.totalContainer}>
-            <View style={styles.textBackground}>
-              <Text style={styles.header}>Total Days Present</Text>
-              <Text style={styles.details}>109 Days</Text>
-            </View>
-            <View style={styles.textBackground}>
-              <Text style={styles.header}>Total Days Absent</Text>
-              <Text style={styles.details}>18 Days</Text>
-            </View>
-          </View>
-          <View style={styles.textBackground}>
-            <Text style={styles.header}>Name</Text>
-            <Text style={styles.details}>Shaikh Faizan</Text>
-          </View>
-          <View style={styles.textBackground}>
-            <Text style={styles.header}>Employee Id</Text>
-            <Text style={styles.details}>#34134jf2f2f9</Text>
-          </View>
-          <View style={styles.textBackground}>
-            <Text style={styles.header}>Company</Text>
-            <Text style={styles.details}>Great Place To Work</Text>
-          </View>
-          <View style={styles.textBackground}>
-            <Text style={styles.header}>Email</Text>
-            <Text style={styles.details}>Shaikh.faizan@gptw.com</Text>
-          </View>
-          <View style={styles.textBackground}>
-            <Text style={styles.header}>Mob No</Text>
-            <Text style={styles.details}>9371101252</Text>
+          <View style={{ height: 450 }}>
+            <ScrollView>
+              <Text
+                style={{
+                  color: colors.textSecondary,
+                  marginLeft: 30,
+                  fontSize: 14,
+                  fontFamily: "DMSans-Regular",
+                }}
+              >
+                Check Your Profile
+              </Text>
+              <Text
+                style={{
+                  color: colors.textPrimary,
+                  marginLeft: 30,
+                  fontSize: 24,
+                  fontFamily: "DMSans-Bold",
+                  marginTop: -5,
+                }}
+              >
+                Details
+              </Text>
+
+              <View style={styles.textBackground}>
+                <Text style={styles.header}>Name</Text>
+                <Text style={styles.details}>Shaikh Faizan</Text>
+              </View>
+              <View style={styles.textBackground}>
+                <Text style={styles.header}>Employee Id</Text>
+                <Text style={styles.details}>#34134jf2f2f9</Text>
+              </View>
+              <View style={styles.textBackground}>
+                <Text style={styles.header}>Company</Text>
+                <Text style={styles.details}>Great Place To Work</Text>
+              </View>
+              <View style={styles.textBackground}>
+                <Text style={styles.header}>Email</Text>
+                <Text style={styles.details}>Shaikh.faizan@gptw.com</Text>
+              </View>
+              <View style={styles.textBackground}>
+                <Text style={styles.header}>Mob No</Text>
+                <Text style={styles.details}>9371101252</Text>
+              </View>
+              <View style={styles.totalContainer}>
+                <View style={styles.textBackground}>
+                  <Text style={styles.header}>Total Days Present</Text>
+                  <Text style={styles.details}>109 Days</Text>
+                </View>
+                <View style={styles.textBackground}>
+                  <Text style={styles.header}>Total Days Absent</Text>
+                  <Text style={styles.details}>18 Days</Text>
+                </View>
+              </View>
+            </ScrollView>
           </View>
         </View>
       </View>

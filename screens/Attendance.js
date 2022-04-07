@@ -163,21 +163,23 @@ const Attendance = ({ navigation, route }) => {
           >
             Status
           </Text>
-          <ScrollView>
-            <View style={{ marginLeft: 20, marginTop: 10 }}>
-              <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={numColumns}
-              />
-            </View>
-            <View style={{ marginLeft: 30, marginRight: 30, marginTop: 15 }}>
-              <TouchableOpacity style={[styles.button]}>
-                <Text style={styles.text}>Add</Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+          <View style={{ height: 350 }}>
+            <ScrollView>
+              <View style={{ marginLeft: 20, marginTop: 10 }}>
+                <FlatList
+                  data={data}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                  numColumns={numColumns}
+                />
+              </View>
+              <View style={{ marginLeft: 30, marginRight: 30, marginTop: 15 }}>
+                <TouchableOpacity style={[styles.button]}>
+                  <Text style={styles.text}>Add</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </View>
         </View>
       </View>
     </SafeAreaView>
